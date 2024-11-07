@@ -1,23 +1,31 @@
 # Deep learning for cell neighborhood detection in multiplex tissue images
-Eric Cramer, Emma Dyer, Hugh Galloway, Robert Heussner, Sanghoon Lee, Yi-Chien Wu  
+**Authors**: Eric Cramer, Emma Dyer, Hugh Galloway, Robert Heussner, Sanghoon Lee, Yi-Chien Wu  
 NCI Human Tumor Atlas Network Data Jamboree | Nov. 6-8, 2024
 
-**Introduction**
--------
-Traditional multiplex imaging analysis pipelines produce cell types and downstream cell neighborhoods based on time-consuming cell segmentation and typing. Cell typing can often be thrown off by errors in segmentation which are particularly easy to make in the modality of multiplex imaging, and these issues propagate to neighborhood assignment. Additionally, neighborhood detection methods rely on featurized images and inherently do not consider cell morphology, staining patterns, and spatial orientation relative to other cells. We propose to model the raw imaging data with self-supervised computer vision approaches (masked autoencoder) and to demonstrate that the model can encode information like cell neighborhoods from imaging data alone.
+## Introduction
+Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types and downstream recurrent cell neighborhoods (RCNs) based on time-consuming cell segmentation and typing. Cell type assignment can often be thrown off by errors in segmentation which are particularly easy to make in the modality of multiplex imaging, and these issues propagate to neighborhood detection. Additionally, neighborhood detection methods rely on featurized images and inherently do not consider cell morphology, staining patterns, and spatial orientation relative to other cells. We propose to model the raw imaging data with a masked autoencoder (MAE) and to demonstrate that the model can encode information like cell neighborhoods from imaging data alone. We also plan to compare common neighborhood detection methods with our embedding-based approach to understand if adding the pixel information can improve neighborhoods for downstream uses. 
 
-**Goals**
--------
-- Encode image patches from whole-slide images. Assign marker positivity to individual patches, via marker intensity. Use patch embeddings as inputs to train a classifier for marker positivity (i.e. tumor enriched regions, immune low regions, etc.)
-- Assign RCNs to the labeled patches, then cluster the embeddings and compare the labeled RCNs with those automatically uncovered by the patch embeddings.
-- Label image regions, based on region examples shown in the MINERVA stories. Use multi-instance learning to predict region labels based on the set of embeddings in each region. 
+## Goals 
+1. Demonstrate the MAE can learn faithful representations of MTI patches.
+2. Phenotype the cells and train a classifier to predict marker positivity in each patch.
+3. Assign RCNs to the image patches and cluster the MAE embeddings. Compare the labeled RCNs with those automatically uncovered by the patch embeddings. 
 
-**Methods**
--------
-![Workflow](assets/workflow1.png)
+## Methods
+![Workflow](assets/workflow1.png)  
+**Figure 1: Method overview**. The idea is to take an input MTI (1), break it up into small patches (2) and assign cell type labels based on the marker expression (3). Next, we embed the MTI patches with a masked autoencoder (4) and use those embeddings to predict the cell type composition of the patches (5). Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results (6). 
 
-## Code
+- For (1) and (2), we used X 
+- For (3), we used flowkit and manually gated markers. 
+- For clustering in (6), refer to X notebook where we used GPU-accelerated Rapids-singlecell 
 
 ## Results
 
-**Acknowledgements**
+## Problems
+- To scale the project up, we needed accurate cell labels for each image. We had to assign cell types to all cells in the image based on our limited biological knowledge of the Melanoma WSI we chose to use.
+- We had trouble accessing and learning the ISB-CGC cloud resources to analyze our large dataset of over 600k cells!
+- The neighborhoods we detected are inherently linked to the patch size, which can be arbitrarily defined.
+ 
+## Future directions
+- Explore the impact of patch size on neighborhood detection.
+- Mask out border cells to ensure the cells are fully contained in each patch.
+- Evaluate the downstream effects (patient outcome, ROI identification) of defining neighborhoods directly from raw images as opposed to traditional RCN.
