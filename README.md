@@ -14,10 +14,9 @@ Traditional multiplex imaging analysis pipelines produce cell types and downstre
 
 **Methods**
 -------
-![Workflow](assets/workflow.png)
+![Workflow](assets/workflow1.png)
 
 ## Code
-
 
 ## Results
 
