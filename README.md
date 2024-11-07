@@ -12,11 +12,11 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 
 ## Methods
 ![Workflow](assets/workflow1.png)  
-**Figure 1: Method overview**. The idea is to take an input MTI (1), break it up into small patches (2) and assign cell type labels based on the marker expression (3). Next, we embed the MTI patches with a masked autoencoder (4) and use those embeddings to predict the cell type composition of the patches (5). Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results (6). 
+**Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
 
-- For (1) and (2), we used X 
-- For (3), we used flowkit and manually gated markers. 
-- For clustering in (6), refer to X notebook where we used GPU-accelerated Rapids-singlecell 
+- For **(1)** and **(2)**, we used X 
+- For **(3)**, we used flowkit and manually gated markers. 
+- For clustering in **(6)**, refer to X notebook where we used GPU-accelerated Rapids-singlecell 
 
 ## Results
 
@@ -26,6 +26,6 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 - The neighborhoods we detected are inherently linked to the patch size, which can be arbitrarily defined.
  
 ## Future directions
-- Explore the impact of patch size on neighborhood detection.
-- Mask out border cells to ensure the cells are fully contained in each patch.
-- Evaluate the downstream effects (patient outcome, ROI identification) of defining neighborhoods directly from raw images as opposed to traditional RCN.
+1. Explore the impact of patch size on neighborhood detection.
+2. Mask out border cells to ensure the cells are fully contained in each patch.
+3. Evaluate the downstream effects (patient outcome, ROI identification) of defining neighborhoods directly from raw images as opposed to traditional RCN.
