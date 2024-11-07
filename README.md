@@ -11,7 +11,7 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 3. Assign RCNs to the image patches and cluster the MAE embeddings. Compare the labeled RCNs with those automatically uncovered by the patch embeddings. 
 
 ## Methods
-![Workflow](assets/workflow1.png)  
+![Workflow](assets/workflow.png)  
 **Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
 
 - For **(1)** and **(2)**, we used X 
