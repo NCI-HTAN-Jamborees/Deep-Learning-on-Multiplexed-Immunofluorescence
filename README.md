@@ -51,8 +51,8 @@ We also performed unsupervised clustering on the patch embeddings and mapped the
 
 ## Problems
 - To scale the project up, we needed accurate cell labels for each image. We had to assign cell types to all cells in the image based on our limited biological knowledge of the Melanoma WSI we chose to use.
-- We spent a decent portion of time learning how to use the ISB-CGC cloud resource to analyze our large dataset of over 600k cells! 
-- The neighborhoods we detected are inherently linked to the patch size, which can be arbitrarily defined.
+- We spent a decent amount of time learning how to use the ISB-CGC cloud resource to analyze our data.
+- The neighborhoods we detected are inherently linked to the chosen patch size. Our patch sizes were relatively small (30 microns) only capturing 1-3 cells.
  
 ## Future directions
 1. Explore the impact of patch size on neighborhood detection.
