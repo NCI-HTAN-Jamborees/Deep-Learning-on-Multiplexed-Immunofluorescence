@@ -8,7 +8,15 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 ## Goals 
 1. Demonstrate the MAE can learn faithful representations of MTI patches.
 2. Phenotype the cells and train a classifier to predict marker positivity in each patch.
-3. Assign RCNs to the image patches and cluster the MAE embeddings. Compare the labeled RCNs with those automatically uncovered by the patch embeddings. 
+3. Assign RCNs to the image patches and cluster the MAE embeddings. Compare the labeled RCNs with those automatically uncovered by the patch embeddings.
+
+## Whole-Slide Image Processing and Self-Supervised Modeling of Patches
+**Whole Slide Image Processing**: 
+1. To convert whole-slide images into collections of regions we run the file "roi_sampler.py". This file acceps a path to a whole slide image and also a single-cell table. We take (1000,1300) pixel regions from the whole-slide images and keep all regions which have more than 1000 cells present. This is a tissue foreground segmentation.
+2. There are several files in this repository that handle patch extraction from the regions. Those are "general_patch_extractor.py", "parallel_patch_extractor.py", and "parallel_cell_patch_extractor.py". All patch extractors take image region files convert them into fixed size patches, in our case we use (64,64) patches. This is also where we perform image normalization, in our case we perform mean division across channels and then take the log10 transform for all image intensities. The "general_patch_extractor.py" file takes regions sequentially, the "parallel" files just injest a single region and region name, such that you can leverage parallel processing through platforms like NextFlow. The "parallel_cell_patch_extractor.py" file centers the patches on individual cells, which we leveraged for cell type prediction on the image embeddings. We did not train on these patches, but instead on the evenly spaced tiles from "parallel_patch_extractor.py"
+3. The file "patch_pretrain.py" trains a masked autoencoder model (vision transformer based model) on the reconstruction task for a folder of all patches. It accepts an argument for the number of channels and includes an option to subset the channels based on a file that holds channels that the user wants to train on. We use a masking ratio of 50% and take 16x16 tiles within each patch to define the tokens passed into the model. 
+4. We then extract embeddings for all patches using the file "extract_embeddings.py" which passes every patch into the trained model and saves an anndata object that holds all the embeddings and the metadata associated with every embedding.
+5. To view examples of model reconstruction, we use the "ssl_recon_viz.py" file which produces a user defined number of reconstruction examples in the format of (input, masked input, reconstructed output)
 
 ## Methods
 ![Workflow](assets/workflow.png)  
