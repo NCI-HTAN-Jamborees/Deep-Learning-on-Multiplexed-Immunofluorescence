@@ -22,10 +22,15 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 - For clustering in **(6)**, refer to `gpu_clustering.ipynb` notebook where we used [GPU-accelerated Louvain algorithm](https://rapids-singlecell.readthedocs.io/en/latest/) to cluster our 600,000 cell dataset in 10s! 
 
 ## Results
-**MAE training**  
+**MAE training**
+<img src="assets/image-reconstruction-example-1.png"/><br/>
+<img src="assets/image-reconstruction-example-2.png"/>
+
 **Cell type assignment**  
-We found automatic gating tumor cell type assignments aligned well with SOX10 expression in the original image.
+We found automatic and manual gating tumor cell type assignments aligned well with SOX10 expression in the original image.
 ![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)
+
+
 **Cell type prediction**  
 **Embedding exploration**  
 We projected the patch embeddings into a UMAP to visually compare the manual and automatic cell type assignments
