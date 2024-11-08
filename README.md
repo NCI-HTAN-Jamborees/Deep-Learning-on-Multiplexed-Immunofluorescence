@@ -28,7 +28,11 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 
 **Cell type assignment**  
 We found automatic and manual gating tumor cell type assignments aligned well with SOX10 expression in the original image.
-![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)
+
+| Automatic Gating Result  | Manual Gating Result |
+| ------------- | ------------- |
+| ![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)  | ![Tumor cells from automatic gating](assets/napari_visualizations/manual_gating_tumor.png)  |
+
 
 
 **Cell type prediction**  
