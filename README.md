@@ -1,6 +1,6 @@
 # Deep learning for cell neighborhood detection in multiplex tissue images
-**Authors**: Eric Cramer, Emma Dyer, Hugh Galloway, Robert Heussner, Sanghoon Lee, Yi-Chien Wu  
-NCI Human Tumor Atlas Network Data Jamboree | Nov. 6-8, 2024
+### NCI Human Tumor Atlas Network Data Jamboree | Nov. 6-8, 2024
+**Eric Cramer, Emma Dyer, Hugh Galloway, Robert Heussner, Sanghoon Lee, Yi-Chien Wu**
 
 ## Introduction
 Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types and downstream recurrent cell neighborhoods (RCNs) based on time-consuming cell segmentation and typing. Cell type assignment can often be thrown off by errors in segmentation which are particularly easy to make in the modality of multiplex imaging, and these issues propagate to neighborhood detection. Additionally, neighborhood detection methods rely on featurized images and inherently do not consider cell morphology, staining patterns, and spatial orientation relative to other cells. We propose to model the raw imaging data with a masked autoencoder (MAE) and to demonstrate that the model can encode information like cell neighborhoods from imaging data alone. We also plan to compare common neighborhood detection methods with our embedding-based approach to understand if adding the pixel information can improve neighborhoods for downstream uses. 
@@ -12,13 +12,31 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 
 ## Methods
 ![Workflow](assets/workflow.png)  
-**Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
+**Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we can embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
 
+- We chose a single MTI (Sample ID: Mel01_3_1) from a [malignant melanoma study](https://aacrjournals.org/cancerdiscovery/article/12/6/1518/699151/The-Spatial-Landscape-of-Progression-and) that can be found on the HTAN data portal [here](https://humantumoratlas.org/explore?selectedFilters=%5B%7B%22value%22%3A%22CyCIF%22%2C%22group%22%3A%22assayName%22%2C%22count%22%3A5139%2C%22isSelected%22%3Afalse%7D%2C%7B%22value%22%3A%22Malignant+melanoma+NOS%22%2C%22group%22%3A%22PrimaryDiagnosis%22%2C%22count%22%3A44%2C%22isSelected%22%3Afalse%7D%5D).
 - For **(1)** and **(2)**, we used X 
-- The process for **(3)** is shown in [manual_fk_gating.ipynb](manual_fk_gating.ipynb), where we used flowkit and manually gated markers. 
-- For clustering in **(6)**, refer to X notebook where we used GPU-accelerated Rapids-singlecell 
+- The process for **(3)** is shown in `manual_fk_gating.ipynb`, where we used [flowkit](https://github.com/whitews/FlowKit) and manually gated markers.
+- To accomplish **(4)** we implemented the MAE in PyTorch `folder`
+- 
+- For clustering in **(6)**, refer to `gpu_clustering.ipynb` notebook where we used [GPU-accelerated Louvain algorithm](https://rapids-singlecell.readthedocs.io/en/latest/) to cluster our 600,000 cell dataset in 10s! 
 
 ## Results
+**MAE training**
+<img src="assets/image-reconstruction-example-1.png"/><br/>
+<img src="assets/image-reconstruction-example-2.png"/>
+
+**Cell type assignment**  
+We found automatic and manual gating tumor cell type assignments aligned well with SOX10 expression in the original image.
+![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)
+
+
+**Cell type prediction**  
+**Embedding exploration**  
+We projected the patch embeddings into a UMAP to visually compare the manual and automatic cell type assignments
+![UMAP colored by cell types](assets/Figure3.png)  
+We also performed unsupervised clustering on the patch embeddings and mapped the cluster assignments back onto the original image
+![Unsupervised MAE embeddings capture tissue regions](assets/Figure4.png)
 
 ## Problems
 - To scale the project up, we needed accurate cell labels for each image. We had to assign cell types to all cells in the image based on our limited biological knowledge of the Melanoma WSI we chose to use.
