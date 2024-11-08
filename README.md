@@ -19,7 +19,7 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 
 ## Methods
 ![Workflow](assets/workflow.png)  
-**Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we can embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
+The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we can embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
 
 - We chose a single MTI (Sample ID: Mel01_3_1) from a [malignant melanoma study](https://aacrjournals.org/cancerdiscovery/article/12/6/1518/699151/The-Spatial-Landscape-of-Progression-and) that can be found on the HTAN data portal [here](https://humantumoratlas.org/explore?selectedFilters=%5B%7B%22value%22%3A%22CyCIF%22%2C%22group%22%3A%22assayName%22%2C%22count%22%3A5139%2C%22isSelected%22%3Afalse%7D%2C%7B%22value%22%3A%22Malignant+melanoma+NOS%22%2C%22group%22%3A%22PrimaryDiagnosis%22%2C%22count%22%3A44%2C%22isSelected%22%3Afalse%7D%5D).
 - For a description of **(1)**, **(2)**, and **(4)**, refer to the above section.
@@ -28,6 +28,10 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 
 ## Results
 ### MAE training
+
+We performed model pretraining on a subset of 15 channels which were used in the cell phenotyping. Examples of the model reconstruction after training were shown below. There tend to be artefacts around the masked tiles, which is common for masked autoencoders, but broadly the model does a good job of understanding the structure of intensity patterns, even across very hetergeneous channels. 
+
+
 <img src="assets/image-reconstruction-example-1.png"/><br/>
 <img src="assets/image-reconstruction-example-2.png"/>
 
@@ -56,8 +60,8 @@ We also performed unsupervised clustering on the patch embeddings and mapped the
 
 ## Problems
 - To scale the project up, we needed accurate cell labels for each image. We had to assign cell types to all cells in the image based on our limited biological knowledge of the Melanoma WSI we chose to use.
-- We spent a decent portion of time learning how to use the ISB-CGC cloud resource to analyze our large dataset of over 600k cells! 
-- The neighborhoods we detected are inherently linked to the patch size, which can be arbitrarily defined.
+- We spent a decent amount of time learning how to use the ISB-CGC cloud resource to analyze our data.
+- The neighborhoods we detected are inherently linked to the chosen patch size. Our patch sizes were relatively small (30 microns) only capturing 1-3 cells.
  
 ## Future directions
 1. Explore the impact of patch size on neighborhood detection.
