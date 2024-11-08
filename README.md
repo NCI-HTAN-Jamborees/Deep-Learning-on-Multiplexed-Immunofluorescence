@@ -15,10 +15,20 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 **Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
 
 - For **(1)** and **(2)**, we used X 
-- The process for **(3)** is shown in `manual_fk_gating.ipynb`, where we used [flowkit](https://github.com/whitews/FlowKit) and manually gated markers. 
+- The process for **(3)** is shown in `manual_fk_gating.ipynb`, where we used [flowkit](https://github.com/whitews/FlowKit) and manually gated markers.
+- To accomplish **(4)** we implemented the MAE in PyTorch `folder`
+- 
 - For clustering in **(6)**, refer to `gpu_clustering.ipynb` notebook where we used [GPU-accelerated Louvain algorithm](https://rapids-singlecell.readthedocs.io/en/latest/) to cluster our 600,000 cell dataset in 10s! 
 
 ## Results
+**MAE training**
+**Cell type assignment**
+**Cell type prediction**
+**Embedding exploration**  
+We projected the patch embeddings into a UMAP to visually compare the manual and automatic cell type assignments (Figure 3)
+![UMAP colored by cell types](assets/Figure3.png)  
+We also performed unsupervised clustering on the patch embeddings and mapped the cluster assignments back onto the original image (Figure 4)
+![Unsupervised MAE embeddings capture tissue regions](assets/Figure4.png)
 
 ## Problems
 - To scale the project up, we needed accurate cell labels for each image. We had to assign cell types to all cells in the image based on our limited biological knowledge of the Melanoma WSI we chose to use.
