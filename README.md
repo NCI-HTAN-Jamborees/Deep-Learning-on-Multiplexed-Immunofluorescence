@@ -24,6 +24,7 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 ## Results
 **MAE training**
 **Cell type assignment**
+![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)
 **Cell type prediction**
 **Embedding exploration**  
 We projected the patch embeddings into a UMAP to visually compare the manual and automatic cell type assignments (Figure 3)
