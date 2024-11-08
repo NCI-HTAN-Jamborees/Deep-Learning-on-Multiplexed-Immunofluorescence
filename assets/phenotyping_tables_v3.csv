@@ -1,0 +1,10 @@
+﻿Unnamed: 0,Unnamed: 1,SOX10,PDL1,CD3,CD8,PD1,CD163,CD11c,FOXP3
+all,Tumor,pos ,,,,,,,
+all,Non-Tumor,neg,,,,,,,
+Non-Tumor,T cell,,,anypos,anypos,,,,
+Non-Tumor,Dendritic cell,,,,,,,pos,
+Non-Tumor,M2 Macrophage,,,,,,pos,,
+Tumor ,PDL1+,pos ,pos ,,,,,,
+T cell,Cytotoxic T cells,,,anypos,anypos,neg,,,
+T cell,Exhuasted T cells,,,anypos,anypos,pos,,,
+T cell,Treg ,,,allpos,,,,,allpos
