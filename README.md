@@ -15,8 +15,8 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 **Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
 
 - For **(1)** and **(2)**, we used X 
-- The process for **(3)** is shown in [manual_fk_gating.ipynb](manual_fk_gating.ipynb), where we used flowkit and manually gated markers. 
-- For clustering in **(6)**, refer to X notebook where we used GPU-accelerated Rapids-singlecell 
+- The process for **(3)** is shown in `manual_fk_gating.ipynb`, where we used [flowkit](https://github.com/whitews/FlowKit) and manually gated markers. 
+- For clustering in **(6)**, refer to `gpu_clustering.ipynb` notebook where we used [GPU-accelerated Louvain algorithm](https://rapids-singlecell.readthedocs.io/en/latest/) to cluster our 600,000 cell dataset in 10s! 
 
 ## Results
 
