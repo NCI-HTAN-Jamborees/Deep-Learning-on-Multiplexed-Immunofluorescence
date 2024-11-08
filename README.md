@@ -14,6 +14,7 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 ![Workflow](assets/workflow.png)  
 **Figure 1: Method overview**. The idea is to take an input MTI **(1)**, break it up into small patches **(2)** and assign cell type labels based on the marker expression **(3)**. Next, we embed the MTI patches with a masked autoencoder **(4)** and use those embeddings to predict the cell type composition of the patches **(5)**. Finally, we can cluster the embeddings and compare the neighborhoods we discover versus typical recurrent neighborhood analysis results **(6)**. 
 
+- We chose a single MTI (Sample ID: Mel01_3_1) from a [malignant melanoma study](https://aacrjournals.org/cancerdiscovery/article/12/6/1518/699151/The-Spatial-Landscape-of-Progression-and) that can be found on the HTAN data portal [here](https://humantumoratlas.org/explore?selectedFilters=%5B%7B%22value%22%3A%22CyCIF%22%2C%22group%22%3A%22assayName%22%2C%22count%22%3A5139%2C%22isSelected%22%3Afalse%7D%2C%7B%22value%22%3A%22Malignant+melanoma+NOS%22%2C%22group%22%3A%22PrimaryDiagnosis%22%2C%22count%22%3A44%2C%22isSelected%22%3Afalse%7D%5D)
 - For **(1)** and **(2)**, we used X 
 - The process for **(3)** is shown in `manual_fk_gating.ipynb`, where we used [flowkit](https://github.com/whitews/FlowKit) and manually gated markers.
 - To accomplish **(4)** we implemented the MAE in PyTorch `folder`
