@@ -80,3 +80,19 @@ We also performed unsupervised clustering on the patch embeddings and mapped the
 1. Explore the impact of patch size on neighborhood detection.
 2. Mask out border cells to ensure the cells are fully contained in each patch.
 3. Evaluate the downstream effects (patient outcome, ROI identification) of defining neighborhoods directly from raw images as opposed to traditional RCN.
+
+## Index of Code
+| Filename | Description |
+|---|---|
+|  autogate_celltype_pred.ipynb |   |
+|  cluster_cell_typing.ipynb |   |
+|  extract_embeddings.py |   |
+| general_patch_extractor.py  |   |
+| [gpu_clustering.ipynb](https://github.com/NCI-HTAN-Jamborees/Deep-Learning-on-Multiplexed-Immunofluorescence/blob/main/gpu_clustering.ipynb)  |   |
+|  [manual_fk_gating.ipynb](https://github.com/NCI-HTAN-Jamborees/Deep-Learning-on-Multiplexed-Immunofluorescence/blob/main/manual_fk_gating.ipynb) | Manual gating for cell phenotype calling by using the FlowKit workflow. |
+| parallel_cell_patch_extractor.py  |   |
+| parallel_patch_extractor.py  |   |
+|  patch_pretrain.py |   |
+| roi_sampler.py | |
+| scimap_typing_autogating.ipynb | |
+| ssl_recon_viz.py | |
