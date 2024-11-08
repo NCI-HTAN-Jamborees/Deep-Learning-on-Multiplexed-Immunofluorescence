@@ -31,12 +31,25 @@ The idea is to take an input MTI **(1)**, break it up into small patches **(2)**
 
 We performed model pretraining on a subset of 15 channels which were used in the cell phenotyping. Examples of the model reconstruction after training were shown below. There tend to be artefacts around the masked tiles, which is common for masked autoencoders, but broadly the model does a good job of understanding the structure of intensity patterns, even across very hetergeneous channels. 
 
-
 <img src="assets/image-reconstruction-example-1.png"/><br/>
 <img src="assets/image-reconstruction-example-2.png"/>
 
 ### Cell type assignment
-We discovered a trade-off in cell pehnotyping accuracy. We employed automatic cell phenotyping with [SciMap](https://scimap.xyz/) and manual gating via an adpated flow cytometry strategy with [FlowKit](https://flowkit.readthedocs.io/en/latest/) and compared the results. The automatic phenotyping method yielded many false positive cell type classifications, and we discovered that our manual gating strategy applied non-hierarchical strict gates that yielded many false negative or overlapping cell type calls. We show a few illustrative examples of the differences between the automatic and manual gating strategies below.
+We discovered a trade-off in cell pehnotyping accuracy. We employed automatic cell phenotyping with [SciMap](https://scimap.xyz/) and manual gating via an adpated flow cytometry strategy with [FlowKit](https://flowkit.readthedocs.io/en/latest/) and compared the results. The automatic phenotyping method with the table below (formatted for SciMap) yielded many false positive cell type classifications.
+
+|  |         | SOX10 | PDL1 |   CD3  |   CD8  | PD1 | CD163 | CD11c |  FOXP3 |
+|:----------:|:-----------------:|:-----:|:----:|:------:|:------:|:---:|:-----:|:-----:|:------:|
+|     all    |       Tumor       |  pos  |      |        |        |     |       |       |        |
+|     all    |     Non-Tumor     |  neg  |      |        |        |     |       |       |        |
+|  Non-Tumor |       T cell      |       |      | anypos | anypos |     |       |       |        |
+|  Non-Tumor |   Dendritic cell  |       |      |        |        |     |       |  pos  |        |
+|  Non-Tumor |   M2 Macrophage   |       |      |        |        |     |  pos  |       |        |
+|   Tumor    |       PDL1+       |  pos  | pos  |        |        |     |       |       |        |
+|   T cell   | Cytotoxic T cells |       |      | anypos | anypos | neg |       |       |        |
+|   T cell   | Exhausted T cells |       |      | anypos | anypos | pos |       |       |        |
+|   T cell   |       Treg        |       |      | allpos |        |     |       |       | allpos |
+
+Furthmermore, we discovered that our manual gating strategy, which applied strict but simplistic non-hierarchical gates, yielded many false negative or overlapping cell type calls. We show a few illustrative examples of the differences between the automatic and manual gating strategies below.
 
 In both cases, we found automatic and manual gating tumor cell type assignments aligned well with SOX10 expression in the original image.
 
