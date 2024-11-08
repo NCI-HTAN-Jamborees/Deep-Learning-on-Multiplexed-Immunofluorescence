@@ -27,23 +27,30 @@ Traditional multiplex tissue imaging (MTI) analysis pipelines produce cell types
 - For clustering in **(6)**, refer to `gpu_clustering.ipynb` notebook where we used [GPU-accelerated Louvain algorithm](https://rapids-singlecell.readthedocs.io/en/latest/) to cluster our 600,000 cell dataset in 10s! 
 
 ## Results
-**MAE training**
+### MAE training
 <img src="assets/image-reconstruction-example-1.png"/><br/>
 <img src="assets/image-reconstruction-example-2.png"/>
 
-**Cell type assignment**  
-We found automatic and manual gating tumor cell type assignments aligned well with SOX10 expression in the original image.
+### Cell type assignment
+We discovered a trade-off in cell pehnotyping accuracy. We employed automatic cell phenotyping with [SciMap](https://scimap.xyz/) and manual gating via an adpated flow cytometry strategy with [FlowKit](https://flowkit.readthedocs.io/en/latest/) and compared the results. The automatic phenotyping method yielded many false positive cell type classifications, and we discovered that our manual gating strategy applied non-hierarchical strict gates that yielded many false negative or overlapping cell type calls. We show a few illustrative examples of the differences between the automatic and manual gating strategies below.
 
-| Automatic Gating Result  | Manual Gating Result |
+In both cases, we found automatic and manual gating tumor cell type assignments aligned well with SOX10 expression in the original image.
+
+| Manual Gating Result  | Automatic Gating Result |
 | ------------- | ------------- |
-| ![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)  | ![Tumor cells from automatic gating](assets/napari_visualizations/manual_gating_tumor.png)  |
+| ![Tumor cells from automatic gating](assets/napari_visualizations/manual_gating_tumor.png)  | ![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)  |
 
+We also found that automatic and manual gating dendritic cell type calls aligned well with CD11c in the original image, however the manual gating strategy had many false negatives.
 
+| Manual Gating Result  | Automatic Gating Result |
+| ------------- | ------------- |
+| ![Tumor cells from automatic gating](assets/napari_visualizations/manual_gating_dendritic.png)  | ![Tumor cells from automatic gating](assets/napari_visualizations/autogating_dendritic.png)  |
 
-**Cell type prediction**  
-**Embedding exploration**  
-We projected the patch embeddings into a UMAP to visually compare the manual and automatic cell type assignments
+Finally, we generated a UMAP projection from the latent representations of the image patches taken from the WSI. Viisual comparison of the manual and automatic cell type assignments both showed separation of different cell types, but not necessarily close association within the same cell type. We hypothesize that the observed disparate clusters within cell types may be due to the included cell type morphology information contained in the image patches.
 ![UMAP colored by cell types](assets/Figure3.png)  
+
+### Cell type prediction
+### Embedding exploration  
 We also performed unsupervised clustering on the patch embeddings and mapped the cluster assignments back onto the original image
 ![Unsupervised MAE embeddings capture tissue regions](assets/Figure4.png)
 
