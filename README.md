@@ -27,7 +27,7 @@ The idea is to take an input MTI **(1)**, break it up into small patches **(2)**
 - For clustering in **(6)**, refer to `gpu_clustering.ipynb` notebook where we used [GPU-accelerated Louvain algorithm](https://rapids-singlecell.readthedocs.io/en/latest/) to cluster our 600,000 cell dataset in 10s! 
 
 ## Results
-**MAE training**
+**MAE training**  
 We performed model pretraining on a subset of 15 channels which were used in the cell phenotyping. Examples of the model reconstruction after training were shown below. There tend to be artefacts around the masked tiles, which is common for masked autoencoders, but broadly the model does a good job of understanding the structure of intensity patterns, even across very hetergeneous channels. 
 
 <img src="assets/image-reconstruction-example-1.png"/><br/>
