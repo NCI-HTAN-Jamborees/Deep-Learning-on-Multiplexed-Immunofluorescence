@@ -88,7 +88,7 @@ We also performed unsupervised clustering on the patch embeddings and mapped the
 |  cluster_cell_typing.ipynb |   |
 |  extract_embeddings.py |   |
 | general_patch_extractor.py  |   |
-| [gpu_clustering.ipynb](https://github.com/NCI-HTAN-Jamborees/Deep-Learning-on-Multiplexed-Immunofluorescence/blob/main/gpu_clustering.ipynb)  |   |
+| [gpu_clustering.ipynb](https://github.com/NCI-HTAN-Jamborees/Deep-Learning-on-Multiplexed-Immunofluorescence/blob/main/gpu_clustering.ipynb)  | Clustering patch embeddings  |
 |  [manual_fk_gating.ipynb](https://github.com/NCI-HTAN-Jamborees/Deep-Learning-on-Multiplexed-Immunofluorescence/blob/main/manual_fk_gating.ipynb) | Manual gating for cell phenotype calling by using the FlowKit workflow. |
 | parallel_cell_patch_extractor.py  |   |
 | parallel_patch_extractor.py  |   |
