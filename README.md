@@ -28,9 +28,9 @@ We found automatic gating tumor cell type assignments aligned well with SOX10 ex
 ![Tumor cells from automatic gating](assets/napari_visualizations/autogating_tumor.png)
 **Cell type prediction**  
 **Embedding exploration**  
-We projected the patch embeddings into a UMAP to visually compare the manual and automatic cell type assignments (Figure 3)
+We projected the patch embeddings into a UMAP to visually compare the manual and automatic cell type assignments
 ![UMAP colored by cell types](assets/Figure3.png)  
-We also performed unsupervised clustering on the patch embeddings and mapped the cluster assignments back onto the original image (Figure 4)
+We also performed unsupervised clustering on the patch embeddings and mapped the cluster assignments back onto the original image
 ![Unsupervised MAE embeddings capture tissue regions](assets/Figure4.png)
 
 ## Problems
